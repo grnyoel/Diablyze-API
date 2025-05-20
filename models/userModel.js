@@ -31,4 +31,29 @@ class User {
     if (error) throw error;
     return data;
   }
+
+  static async findByEmail(email) {
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .single();
+    
+    if (error && error.code !== 'PGRST116') throw error;
+    return data;
+  }
+
+  static async verifyPassword(user, password) {
+    return await bcrypt.compare(password, user.password);
+  }
+
+  static generateToken(user) {
+    return jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
+  }
 }
+
+module.exports = User;
