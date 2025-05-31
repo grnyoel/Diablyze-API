@@ -22,6 +22,35 @@ const authController = {
       next(error);
     }
   },
-}
+
+  getProfile: async (req, res, next) => {
+    try {
+      const result = await authService.getProfile(req.user.id);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  logout: async (req, res, next) => {
+    try {
+      const token = req.headers.authorization.split(' ')[1];
+
+      // Save token to blacklist
+      const { error } = await supabase
+        .from('token_blacklist')
+        .insert([{ token }]);
+      
+      if (error) throw error;
+
+      res.status(200).json({
+        success: true,
+        message: 'Logout successful'
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+};
 
 module.exports = authController;
