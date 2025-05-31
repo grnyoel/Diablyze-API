@@ -1,4 +1,6 @@
 const User = require('../models/userModel')
+const { NotFoundError } = require('../middlewares/errorMiddleware');
+const { BadRequestError, UnauthenticatedError } = require('../middlewares/errorMiddleware');
 
 class AuthService {
   async register(userData) {
@@ -41,6 +43,22 @@ class AuthService {
         name: user.name,
       },
       token,
+    };
+  }
+
+  async getProfile(userId) {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new NotFoundError('User not found');
+    }
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        createdAt: user.created_at
+      }
     };
   }
 }
