@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken');
 class User {
   static async create({ email, password, name }) {
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    
     const { data, error } = await supabase
       .from('users')
       .insert([
-        {
-          email,
-          password: hashedPassword,
-          name
+        { 
+          email, 
+          password: hashedPassword, 
+          name 
         }
       ])
       .select();
@@ -53,6 +53,25 @@ class User {
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
+  }
+
+  static async isTokenBlacklisted(token) {
+    const { data, error } = await supabase
+      .from('token_blacklist')
+      .select('token')
+      .eq('token', token)
+      .single();
+    
+    if (error && error.code !== 'PGRST116') throw error;
+    return !!data;
+  }
+  
+  static async addToBlacklist(token) {
+    const { error } = await supabase
+      .from('token_blacklist')
+      .insert([{ token }]);
+    
+    if (error) throw error;
   }
 }
 
