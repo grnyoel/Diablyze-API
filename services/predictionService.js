@@ -1,4 +1,4 @@
-const DiabetesModel = require('../ml-models/DiabetesModel');
+const DiabetesModel = require('../models/DiabetesModel');
 const supabase = require('../config/supabaseClient');
 
 class PredictionService {
