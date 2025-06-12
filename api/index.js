@@ -8,7 +8,7 @@ const { errorHandlerMiddleware } = require('../middlewares/errorMiddleware');
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || '*',
+  origin: 'https://lustrous-dusk-cfc37a.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 app.use(express.json());
