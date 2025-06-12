@@ -16,7 +16,7 @@ class PredictionService {
     }
 
     // Simpan ke database (opsional)
-    await this.savePredictionHistory(userId, inputData, prediction);
+    // await this.savePredictionHistory(userId, inputData, prediction);
 
     return {
       ...inputData,
