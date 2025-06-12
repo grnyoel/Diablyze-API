@@ -7,10 +7,17 @@ const predictionRoute = require('../routes/predictionRoute');
 const { errorHandlerMiddleware } = require('../middlewares/errorMiddleware');
 
 // Middleware
+const allowedOrigins = [
+  'https://lustrous-dusk-cfc37a.netlify.app', // Frontend Netlify
+  'http://localhost:3000' // Development
+];
+
 app.use(cors({
-  origin: 'https://lustrous-dusk-cfc37a.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 app.use(express.json());
 
 // Routes
