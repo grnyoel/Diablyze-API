@@ -13,8 +13,9 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 // Middleware
 app.use(cors({
   origin: 'https://lustrous-dusk-cfc37a.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  methods: '*',
 }));
+app.options('*', cors()); // Preflight
 
 app.use(express.json());
 
