@@ -27,6 +27,8 @@ app.use(express.json());
 
 // Routes
 app.use('/', authRoutes);
+// app.use('/api/auth', authRoutes); for endpoint /api/auth/login etc
+
 app.use('/api', predictionRoute);
 
 // Health check endpoint
