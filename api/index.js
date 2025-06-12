@@ -24,7 +24,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);  // Endpoint auth: /api/auth/login
-app.use('/api/predict', predictionRoute);  // Endpoint prediksi: /api/predict
+app.use('/api', predictionRoute);  // Endpoint prediksi: /api/predict
 
 // Health check
 app.get('/api/health', (req, res) => {
