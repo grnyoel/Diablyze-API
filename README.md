@@ -1,6 +1,8 @@
 # Diablyze API
 
-This is a Backend API for Diablyze Website using Node.js, Express, and Supabase(PostgreSQL).
+This is a Backend API for Diablyze Website using Node.js, Express, and Supabase(PostgreSQL). This API was deployed and you can access the API link at https://diablyze-api.vercel.app/.
+
+**Note:** Try to access this enpoint `/api/health`, to check if the API is Worked
 
 ## ⚙️ Installation & Environment Variables
 ### Prerequisites
@@ -186,8 +188,46 @@ Response Example
 }
 ```
 
+## ✈️ Deployment
+
+This app is deployed using **Vercel**, which automates the deployment process on every push to the selected branch (e.g., main). To deploy this Express backend to Vercel, follow the steps below:
+
+- Ensure your backend code is inside a GitHub repository, with an `api/index.js` as the entry point (or adjust accordingly).
+- Create a `vercel.json` file in the root directory to define routing and build settings:
+  ```json
+  {
+    "version": 2,
+    "builds": [
+      { "src": "api/index.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "api/index.js" }
+    ]
+  }
+  ```
+- In your *Express* app, enable **CORS** to allow your frontend domain:
+  ```js
+  const cors = require('cors');
+
+  app.use(cors({
+    origin: process.env.CLIENT_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
+  }));
+
+  app.options('*', cors());
+  ```
+- Connect your **GitHub** repo to [Vercel](https://vercel.com), select the repo, and configure project settings if needed.
+- Once connected, Vercel will automatically deploy your backend on every push to the main branch.
+
+After deployment, your API will be accessible at:
+```php-template
+https://<your-vercel-project>.vercel.app/
+```
+And can be securely accessed by your frontend.
+
 ## 📝 Documentation
 [API Documentation](https://documenter.getpostman.com/view/28687808/2sB2x5JD5S)
 
 ## 👤 Author
-[@grnyoel](https://github.com/grnyoel)
+- [@grnyoel](https://github.com/grnyoel)
