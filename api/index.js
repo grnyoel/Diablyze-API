@@ -18,6 +18,10 @@ app.use('/api/auth', authRoutes);  // Endpoint auth: /api/auth/login
 app.use('/api/predict', predictionRoute);  // Endpoint prediksi: /api/predict
 
 // Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'The API is Healthy' });
+});
+
 app.get('/api/', (req, res) => {
   res.json({ status: 'Diablyze API is Running' });
 });
