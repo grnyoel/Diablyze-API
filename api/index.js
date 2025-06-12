@@ -36,4 +36,4 @@ app.get('/api/', (req, res) => {
 // Error handler
 app.use(errorHandlerMiddleware);
 
-module.exports = app;
+module.exports = (req, res) => app(req, res);
