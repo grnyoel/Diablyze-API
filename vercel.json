@@ -7,7 +7,6 @@
     {
       "src": "/api/(.*)",
       "dest": "api/index.js",
-      "methods": ["*"],
       "headers": {
         "Access-Control-Allow-Origin": "https://lustrous-dusk-cfc37a.netlify.app"
       }
