@@ -4,28 +4,17 @@ const app = express();
 const cors = require('cors');
 const authRoutes = require('../routes/authRoutes');
 const predictionRoute = require('../routes/predictionRoute');
+const { createClient } = require('@supabase/supabase-js');
 const { errorHandlerMiddleware } = require('../middlewares/errorMiddleware');
 
+// Supabase config
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
 // Middleware
-const allowedOrigins = [
-  'https://lustrous-dusk-cfc37a.netlify.app', // Frontend Netlify
-  'http://localhost:3000' // Development
-];
-
 app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'https://lustrous-dusk-cfc37a.netlify.app',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 }));
-
-const corsOptions = {
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // <-- penting untuk preflight
 
 app.use(express.json());
 
@@ -45,4 +34,4 @@ app.get('/api/', (req, res) => {
 // Error handler
 app.use(errorHandlerMiddleware);
 
-module.exports = (req, res) => app(req, res);
+module.exports = app;
