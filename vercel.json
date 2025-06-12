@@ -9,7 +9,7 @@
       "dest": "api/index.js",
       "methods": "*",
       "headers": {
-        "Access-Control-Allowed-Origin": "https://lustrous-dusk-cfc37a.netlify.app"
+        "Access-Control-Allow-Origin": "https://lustrous-dusk-cfc37a.netlify.app"
       }
     }
   ]
